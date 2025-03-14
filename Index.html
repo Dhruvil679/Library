@@ -1,0 +1,358 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Library Management System
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+   <div class="flex items-center">
+    <img alt="Library logo, a simple book icon" class="rounded-full" height="50" src="https://storage.googleapis.com/a1aa/image/KryzWpPLb-oD-m_Wqcz_jf3QFy8UuTkwa13l090SN7A.jpg" width="50"/>
+    <h1 class="ml-4 text-2xl font-bold">
+     Library Name
+    </h1>
+   </div>
+   <div class="text-lg font-semibold text-[#48C9B0]" id="current-date">
+   </div>
+  </header>
+  <nav class="bg-white shadow-md mt-4 p-4 flex justify-center space-x-8">
+   <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="home-btn">
+    Home
+   </button>
+   <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="member-status-btn">
+    Member Status
+   </button>
+  </nav>
+  <main class="p-8">
+   <section id="home-section">
+    <div class="flex justify-center space-x-8 mb-8">
+     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="add-book-btn">
+      Add Book
+     </button>
+     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="add-user-btn">
+      Add User
+     </button>
+     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="assign-book-btn">
+      Assign Book
+     </button>
+    </div>
+    <div id="add-book-section">
+     <h2 class="text-xl font-bold mb-4">
+      Add Book Information
+     </h2>
+     <form class="space-y-4" id="add-book-form">
+      <div>
+       <label class="block text-sm font-medium" for="book-name">
+        Book Name
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-name" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="book-author">
+        Book Author Name
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-author" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="book-code">
+        Book Unique Code
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-code" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="book-publish-date">
+        Book Publish Date
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-publish-date" type="date"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="book-language">
+        Book Language
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-language" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="book-closet">
+        Book Closet
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-closet" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="book-section">
+        Book Section
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-section" type="text"/>
+      </div>
+      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
+       Add Book
+      </button>
+     </form>
+    </div>
+    <div class="hidden" id="add-user-section">
+     <h2 class="text-xl font-bold mb-4">
+      Add User Data
+     </h2>
+     <form class="space-y-4" id="add-user-form">
+      <div>
+       <label class="block text-sm font-medium" for="user-name">
+        User Name
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="user-name" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="user-code">
+        User Member Code
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="user-code" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="user-mobile">
+        User Mobile Number
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="user-mobile" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="member-category">
+        Member Category
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="member-category" type="text"/>
+      </div>
+      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
+       Add User
+      </button>
+     </form>
+    </div>
+    <div class="hidden" id="assign-book-section">
+     <h2 class="text-xl font-bold mb-4">
+      Assign Book to User
+     </h2>
+     <form class="space-y-4" id="assign-book-form">
+      <div>
+       <label class="block text-sm font-medium" for="assign-user-name">
+        User Name
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-user-name" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="assign-book-name">
+        Book Name
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-book-name" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="assign-user-code">
+        User Unique Code
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-user-code" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="assign-book-code">
+        Book Unique Code
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-book-code" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="assign-date">
+        Book Assigning Date
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-date" type="date"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="due-date">
+        Due Date
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="due-date" type="date"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="penalty">
+        Penalty
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="penalty" type="text"/>
+      </div>
+      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
+       Assign Book
+      </button>
+     </form>
+    </div>
+    <div class="mt-8" id="book-search-section">
+     <h2 class="text-xl font-bold mb-4">
+      Search Book
+     </h2>
+     <form class="space-y-4" id="book-search-form">
+      <div>
+       <label class="block text-sm font-medium" for="search-book-name">
+        Book Name
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-name" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="search-book-code">
+        Book Unique Code
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-code" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="search-book-author">
+        Book Author
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-author" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium" for="search-book-publish-date">
+        Book Publish Date
+       </label>
+       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-publish-date" type="date"/>
+      </div>
+      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
+       Search Book
+      </button>
+     </form>
+    </div>
+    <div class="mt-8" id="issued-book-details-section">
+     <h2 class="text-xl font-bold mb-4">
+      Currently Issued Book Details
+     </h2>
+     <div class="space-y-4">
+      <div class="bg-white p-4 rounded shadow">
+       <p class="font-semibold">
+        User Name: John Doe
+       </p>
+       <p>
+        Book Name: The Great Gatsby
+       </p>
+       <p>
+        Due Date: 2023-10-15
+       </p>
+       <p>
+        User Mobile Number: 1234567890
+       </p>
+       <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded">
+        Return Book
+       </button>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+       <p class="font-semibold">
+        User Name: Jane Smith
+       </p>
+       <p>
+        Book Name: To Kill a Mockingbird
+       </p>
+       <p>
+        Due Date: 2023-10-20
+       </p>
+       <p>
+        User Mobile Number: 0987654321
+       </p>
+       <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded">
+        Return Book
+       </button>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="hidden" id="member-status-section">
+    <h2 class="text-xl font-bold mb-4">
+     Member Status
+    </h2>
+    <form class="space-y-4" id="member-status-form">
+     <div>
+      <label class="block text-sm font-medium" for="member-code">
+       Member Code
+      </label>
+      <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="member-code" type="text"/>
+     </div>
+     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
+      Check Status
+     </button>
+    </form>
+    <div class="mt-8 hidden" id="member-details">
+     <h3 class="text-lg font-bold">
+      Member Details
+     </h3>
+     <p class="mt-2" id="member-full-name">
+      Full Name:
+     </p>
+     <p class="mt-2" id="member-code-detail">
+      Member Code:
+     </p>
+     <p class="mt-2" id="member-mobile">
+      Mobile Number:
+     </p>
+     <p class="mt-2" id="member-category-detail">
+      Category:
+     </p>
+     <p class="mt-2" id="current-assigned-books">
+      Currently Assigned Books:
+     </p>
+     <p class="mt-2" id="past-assigned-books">
+      Past Assigned Books:
+     </p>
+     <button class="mt-4 px-4 py-2 bg-[#48C9B0] text-white rounded" id="update-details-btn">
+      Update Details
+     </button>
+     <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded" id="delete-member-btn">
+      Delete Member
+     </button>
+    </div>
+   </section>
+  </main>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+            const currentDate = new Date().toLocaleDateString('en-GB');
+            document.getElementById('current-date').textContent = currentDate;
+
+            const homeBtn = document.getElementById('home-btn');
+            const memberStatusBtn = document.getElementById('member-status-btn');
+            const homeSection = document.getElementById('home-section');
+            const memberStatusSection = document.getElementById('member-status-section');
+
+            homeBtn.addEventListener('click', () => {
+                homeSection.classList.remove('hidden');
+                memberStatusSection.classList.add('hidden');
+            });
+
+            memberStatusBtn.addEventListener('click', () => {
+                memberStatusSection.classList.remove('hidden');
+                homeSection.classList.add('hidden');
+            });
+
+            const addBookBtn = document.getElementById('add-book-btn');
+            const addUserBtn = document.getElementById('add-user-btn');
+            const assignBookBtn = document.getElementById('assign-book-btn');
+            const addBookSection = document.getElementById('add-book-section');
+            const addUserSection = document.getElementById('add-user-section');
+            const assignBookSection = document.getElementById('assign-book-section');
+
+            addBookBtn.addEventListener('click', () => {
+                addBookSection.classList.remove('hidden');
+                addUserSection.classList.add('hidden');
+                assignBookSection.classList.add('hidden');
+            });
+
+            addUserBtn.addEventListener('click', () => {
+                addUserSection.classList.remove('hidden');
+                addBookSection.classList.add('hidden');
+                assignBookSection.classList.add('hidden');
+            });
+
+            assignBookBtn.addEventListener('click', () => {
+                assignBookSection.classList.remove('hidden');
+                addBookSection.classList.add('hidden');
+                addUserSection.classList.add('hidden');
+            });
+        });
+  </script>
+ </body>
+</html>
+
