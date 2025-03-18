@@ -1,358 +1,864 @@
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Library Management System
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
-  <style>
-   body {
-            font-family: 'Roboto', sans-serif;
-        }
-  </style>
- </head>
- <body class="bg-gray-100">
-  <header class="bg-white shadow-md p-4 flex justify-between items-center">
-   <div class="flex items-center">
-    <img alt="Library logo, a simple book icon" class="rounded-full" height="50" src="https://storage.googleapis.com/a1aa/image/KryzWpPLb-oD-m_Wqcz_jf3QFy8UuTkwa13l090SN7A.jpg" width="50"/>
-    <h1 class="ml-4 text-2xl font-bold">
-     Library Name
-    </h1>
-   </div>
-   <div class="text-lg font-semibold text-[#48C9B0]" id="current-date">
-   </div>
-  </header>
-  <nav class="bg-white shadow-md mt-4 p-4 flex justify-center space-x-8">
-   <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="home-btn">
-    Home
-   </button>
-   <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="member-status-btn">
-    Member Status
-   </button>
-  </nav>
-  <main class="p-8">
-   <section id="home-section">
-    <div class="flex justify-center space-x-8 mb-8">
-     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="add-book-btn">
-      Add Book
-     </button>
-     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="add-user-btn">
-      Add User
-     </button>
-     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" id="assign-book-btn">
-      Assign Book
-     </button>
-    </div>
-    <div id="add-book-section">
-     <h2 class="text-xl font-bold mb-4">
-      Add Book Information
-     </h2>
-     <form class="space-y-4" id="add-book-form">
-      <div>
-       <label class="block text-sm font-medium" for="book-name">
-        Book Name
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-name" type="text"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Library Management System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome (optional) -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts: Roboto -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #1e1e2f; /* Dark background */
+        color: #ffffff; /* White text */
+        margin: 0;
+        padding: 0;
+      }
+      /* Optional scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #2c2c3e;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #48c9b0;
+      }
+      /* Fixed header & nav */
+      header,
+      nav {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        z-index: 50;
+      }
+      header {
+        top: 0;
+      }
+      nav {
+        top: 64px;
+      }
+      /* Main content pushed down below fixed header+nav */
+      main {
+        margin-top: 128px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- HEADER (fixed) -->
+    <header class="bg-[#2c3e50] p-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <img
+          alt="Library logo"
+          class="rounded-full w-12 h-12"
+          src="https://storage.googleapis.com/a1aa/image/KryzWpPLb-oD-m_Wqcz_jf3QFy8UuTkwa13l090SN7A.jpg"
+        />
+        <h1 class="ml-4 text-2xl font-bold">Library Management</h1>
       </div>
-      <div>
-       <label class="block text-sm font-medium" for="book-author">
-        Book Author Name
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-author" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="book-code">
-        Book Unique Code
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-code" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="book-publish-date">
-        Book Publish Date
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-publish-date" type="date"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="book-language">
-        Book Language
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-language" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="book-closet">
-        Book Closet
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-closet" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="book-section">
-        Book Section
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="book-section" type="text"/>
-      </div>
-      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
-       Add Book
+      <div id="current-date" class="text-lg font-semibold" style="color: #48C9B0"></div>
+    </header>
+
+    <!-- NAV (fixed) -->
+    <nav class="bg-[#2c3e50] p-4 flex justify-center space-x-8">
+      <button
+        id="home-btn"
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
+      >
+        Home
       </button>
-     </form>
-    </div>
-    <div class="hidden" id="add-user-section">
-     <h2 class="text-xl font-bold mb-4">
-      Add User Data
-     </h2>
-     <form class="space-y-4" id="add-user-form">
-      <div>
-       <label class="block text-sm font-medium" for="user-name">
-        User Name
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="user-name" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="user-code">
-        User Member Code
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="user-code" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="user-mobile">
-        User Mobile Number
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="user-mobile" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="member-category">
-        Member Category
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="member-category" type="text"/>
-      </div>
-      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
-       Add User
+      <button
+        id="member-status-btn"
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
+      >
+        Member Status
       </button>
-     </form>
-    </div>
-    <div class="hidden" id="assign-book-section">
-     <h2 class="text-xl font-bold mb-4">
-      Assign Book to User
-     </h2>
-     <form class="space-y-4" id="assign-book-form">
-      <div>
-       <label class="block text-sm font-medium" for="assign-user-name">
-        User Name
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-user-name" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="assign-book-name">
-        Book Name
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-book-name" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="assign-user-code">
-        User Unique Code
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-user-code" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="assign-book-code">
-        Book Unique Code
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-book-code" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="assign-date">
-        Book Assigning Date
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="assign-date" type="date"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="due-date">
-        Due Date
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="due-date" type="date"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="penalty">
-        Penalty
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="penalty" type="text"/>
-      </div>
-      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
-       Assign Book
-      </button>
-     </form>
-    </div>
-    <div class="mt-8" id="book-search-section">
-     <h2 class="text-xl font-bold mb-4">
-      Search Book
-     </h2>
-     <form class="space-y-4" id="book-search-form">
-      <div>
-       <label class="block text-sm font-medium" for="search-book-name">
-        Book Name
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-name" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="search-book-code">
-        Book Unique Code
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-code" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="search-book-author">
-        Book Author
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-author" type="text"/>
-      </div>
-      <div>
-       <label class="block text-sm font-medium" for="search-book-publish-date">
-        Book Publish Date
-       </label>
-       <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="search-book-publish-date" type="date"/>
-      </div>
-      <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
-       Search Book
-      </button>
-     </form>
-    </div>
-    <div class="mt-8" id="issued-book-details-section">
-     <h2 class="text-xl font-bold mb-4">
-      Currently Issued Book Details
-     </h2>
-     <div class="space-y-4">
-      <div class="bg-white p-4 rounded shadow">
-       <p class="font-semibold">
-        User Name: John Doe
-       </p>
-       <p>
-        Book Name: The Great Gatsby
-       </p>
-       <p>
-        Due Date: 2023-10-15
-       </p>
-       <p>
-        User Mobile Number: 1234567890
-       </p>
-       <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded">
-        Return Book
-       </button>
-      </div>
-      <div class="bg-white p-4 rounded shadow">
-       <p class="font-semibold">
-        User Name: Jane Smith
-       </p>
-       <p>
-        Book Name: To Kill a Mockingbird
-       </p>
-       <p>
-        Due Date: 2023-10-20
-       </p>
-       <p>
-        User Mobile Number: 0987654321
-       </p>
-       <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded">
-        Return Book
-       </button>
-      </div>
-     </div>
-    </div>
-   </section>
-   <section class="hidden" id="member-status-section">
-    <h2 class="text-xl font-bold mb-4">
-     Member Status
-    </h2>
-    <form class="space-y-4" id="member-status-form">
-     <div>
-      <label class="block text-sm font-medium" for="member-code">
-       Member Code
-      </label>
-      <input class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="member-code" type="text"/>
-     </div>
-     <button class="px-4 py-2 bg-[#48C9B0] text-white rounded" type="submit">
-      Check Status
-     </button>
-    </form>
-    <div class="mt-8 hidden" id="member-details">
-     <h3 class="text-lg font-bold">
-      Member Details
-     </h3>
-     <p class="mt-2" id="member-full-name">
-      Full Name:
-     </p>
-     <p class="mt-2" id="member-code-detail">
-      Member Code:
-     </p>
-     <p class="mt-2" id="member-mobile">
-      Mobile Number:
-     </p>
-     <p class="mt-2" id="member-category-detail">
-      Category:
-     </p>
-     <p class="mt-2" id="current-assigned-books">
-      Currently Assigned Books:
-     </p>
-     <p class="mt-2" id="past-assigned-books">
-      Past Assigned Books:
-     </p>
-     <button class="mt-4 px-4 py-2 bg-[#48C9B0] text-white rounded" id="update-details-btn">
-      Update Details
-     </button>
-     <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded" id="delete-member-btn">
-      Delete Member
-     </button>
-    </div>
-   </section>
-  </main>
-  <script>
-   document.addEventListener('DOMContentLoaded', () => {
-            const currentDate = new Date().toLocaleDateString('en-GB');
-            document.getElementById('current-date').textContent = currentDate;
+    </nav>
 
-            const homeBtn = document.getElementById('home-btn');
-            const memberStatusBtn = document.getElementById('member-status-btn');
-            const homeSection = document.getElementById('home-section');
-            const memberStatusSection = document.getElementById('member-status-section');
+    <!-- MAIN CONTENT -->
+    <main class="p-6">
+      <!-- HOME SECTION -->
+      <section id="home-section">
+        <!-- Sub-buttons for Add Book, Add User, Assign Book -->
+        <div class="flex flex-wrap gap-4 mb-6">
+          <button
+            id="add-book-btn"
+            class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+          >
+            Add Book
+          </button>
+          <button
+            id="add-user-btn"
+            class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+          >
+            Add User
+          </button>
+          <button
+            id="assign-book-btn"
+            class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+          >
+            Assign Book
+          </button>
+        </div>
 
-            homeBtn.addEventListener('click', () => {
-                homeSection.classList.remove('hidden');
-                memberStatusSection.classList.add('hidden');
-            });
+        <!-- Add Book Form -->
+        <div id="add-book-section" class="bg-[#2f2f40] p-4 rounded mb-6 hidden">
+          <h2 class="text-xl font-bold mb-4">Add Book Information</h2>
+          <form id="add-book-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium" for="book-name">Book Name</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="book-name"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="book-author">Book Author Name</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="book-author"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="book-code">Book Unique Code</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="book-code"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="book-publish-date">Book Publish Date</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="book-publish-date"
+                type="date"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="book-language">Book Language</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="book-language"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="book-closet">Book Closet</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="book-closet"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="book-section">Book Section</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="book-section"
+                type="text"
+                required
+              />
+            </div>
+            <!-- New Material Type Field -->
+            <div>
+              <label class="block text-sm font-medium" for="book-material">Material Type</label>
+              <select
+                id="book-material"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                required
+              >
+                <option value="B-Book">B-Book</option>
+                <option value="M-Magazine">M-Magazine</option>
+                <option value="N-News Papee">N-News Papee</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+            >
+              Add Book
+            </button>
+          </form>
+        </div>
 
-            memberStatusBtn.addEventListener('click', () => {
-                memberStatusSection.classList.remove('hidden');
-                homeSection.classList.add('hidden');
-            });
+        <!-- Add User Form -->
+        <div id="add-user-section" class="bg-[#2f2f40] p-4 rounded mb-6 hidden">
+          <h2 class="text-xl font-bold mb-4">Add User Data</h2>
+          <form id="add-user-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium" for="user-name">User Name</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="user-name"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="user-code">User Unique Code (11 digits)</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="user-code"
+                type="text"
+                pattern="\\d{11}"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="user-mobile">User Mobile Number (10 digits, optional)</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="user-mobile"
+                type="text"
+                pattern="\\d{10}"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="member-category">Member Category</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="member-category"
+                type="text"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+            >
+              Add User
+            </button>
+          </form>
+        </div>
 
-            const addBookBtn = document.getElementById('add-book-btn');
-            const addUserBtn = document.getElementById('add-user-btn');
-            const assignBookBtn = document.getElementById('assign-book-btn');
-            const addBookSection = document.getElementById('add-book-section');
-            const addUserSection = document.getElementById('add-user-section');
-            const assignBookSection = document.getElementById('assign-book-section');
+        <!-- Assign Book Form -->
+        <div id="assign-book-section" class="bg-[#2f2f40] p-4 rounded mb-6 hidden">
+          <h2 class="text-xl font-bold mb-4">Assign Book to User</h2>
+          <form id="assign-book-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium" for="assign-user-name">User Name</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="assign-user-name"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="assign-book-name">Book Name</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="assign-book-name"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="assign-user-code">User Unique Code (11 digits)</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="assign-user-code"
+                type="text"
+                pattern="\\d{11}"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="assign-book-code">Book Unique Code</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="assign-book-code"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="assign-date">Book Assigning Date (DD/MM/YYYY)</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="assign-date"
+                type="date"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium" for="due-date">Due Date (auto-calculated, DD/MM/YYYY)</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="due-date"
+                type="text"
+                readonly
+                required
+              />
+            </div>
+            <!-- Penalty field removed -->
+            <button
+              type="submit"
+              class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+            >
+              Assign Book
+            </button>
+          </form>
+        </div>
 
-            addBookBtn.addEventListener('click', () => {
-                addBookSection.classList.remove('hidden');
-                addUserSection.classList.add('hidden');
-                assignBookSection.classList.add('hidden');
-            });
+        <!-- BOOK SEARCH SECTION (placed after the three forms) -->
+        <div class="mt-8 bg-[#2f2f40] p-4 rounded">
+          <h2 class="text-xl font-bold mb-4">Search Book</h2>
+          <form id="book-search-form" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium" for="search-book-name">Book Name</label>
+                <input
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                  id="search-book-name"
+                  type="text"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium" for="search-book-code">Book Unique Code</label>
+                <input
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                  id="search-book-code"
+                  type="text"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium" for="search-book-author">Book Author</label>
+                <input
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                  id="search-book-author"
+                  type="text"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium" for="search-book-publish-date">Book Publish Date (DD/MM/YYYY)</label>
+                <input
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                  id="search-book-publish-date"
+                  type="date"
+                />
+              </div>
+            </div>
+            <button
+              class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+              type="submit"
+            >
+              Search Book
+            </button>
+          </form>
+          <div class="mt-4 overflow-x-auto">
+            <table class="w-full text-left hidden" id="search-results-table">
+              <thead class="bg-[#2c3e50]">
+                <tr>
+                  <th class="px-4 py-2">Book Name</th>
+                  <th class="px-4 py-2">Author</th>
+                  <th class="px-4 py-2">Code</th>
+                  <th class="px-4 py-2">Publish Date</th>
+                  <th class="px-4 py-2">Material Type</th>
+                  <th class="px-4 py-2">Status</th>
+                </tr>
+              </thead>
+              <tbody id="search-results-body"></tbody>
+            </table>
+            <p class="mt-2 text-red-400" id="search-message"></p>
+          </div>
+        </div>
 
-            addUserBtn.addEventListener('click', () => {
-                addUserSection.classList.remove('hidden');
-                addBookSection.classList.add('hidden');
-                assignBookSection.classList.add('hidden');
-            });
+        <!-- CURRENTLY ASSIGNED BOOKS TABLE -->
+        <div class="mt-8 bg-[#2f2f40] p-4 rounded">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold">Currently Assigned Books</h2>
+            <button
+              id="generate-pdf-btn"
+              class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+            >
+              Generate Transactions PDF
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-[#2c3e50]">
+                <tr>
+                  <th class="px-4 py-2">Owner</th>
+                  <th class="px-4 py-2">Book Name</th>
+                  <th class="px-4 py-2">Due Date</th>
+                  <th class="px-4 py-2">Mobile Number</th>
+                  <th class="px-4 py-2">Action</th>
+                </tr>
+              </thead>
+              <tbody id="assigned-books-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-            assignBookBtn.addEventListener('click', () => {
-                assignBookSection.classList.remove('hidden');
-                addBookSection.classList.add('hidden');
-                addUserSection.classList.add('hidden');
-            });
+      <!-- MEMBER STATUS SECTION -->
+      <section id="member-status-section" class="hidden">
+        <div class="bg-[#2f2f40] p-4 rounded">
+          <h2 class="text-xl font-bold mb-4">Member Status</h2>
+          <form id="member-status-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium" for="member-code">Member Code (11 digits)</label>
+              <input
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-black h-12 text-lg px-3"
+                id="member-code"
+                type="text"
+                pattern="\\d{11}"
+                required
+              />
+            </div>
+            <button
+              class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+              type="submit"
+            >
+              Check Status
+            </button>
+          </form>
+          <div id="member-details" class="mt-6 hidden">
+            <h3 class="text-lg font-bold">Member Details</h3>
+            <p class="mt-2" id="member-full-name">Full Name:</p>
+            <p class="mt-2" id="member-code-detail">Member Code:</p>
+            <p class="mt-2" id="member-mobile">Mobile Number:</p>
+            <p class="mt-2" id="member-category-detail">Category:</p>
+            <p class="mt-2" id="current-assigned-books">Currently Assigned Books:</p>
+            <p class="mt-2" id="past-assigned-books">Past Assigned Books:</p>
+            <div class="flex gap-4 mt-4">
+              <button
+                id="update-details-btn"
+                class="px-4 py-2 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]"
+              >
+                Update Details
+              </button>
+              <button
+                id="delete-member-btn"
+                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-400"
+              >
+                Delete Member
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script>
+      // ---------- Utility: get & save data in localStorage ----------
+      function getData(key) {
+        return JSON.parse(localStorage.getItem(key)) || [];
+      }
+      function saveData(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+      }
+
+      // Convert "YYYY-MM-DD" to "DD/MM/YYYY"
+      function toDDMMYYYY(isoDate) {
+        if (!isoDate) return "";
+        const [yyyy, mm, dd] = isoDate.split("-");
+        return `${dd}/${mm}/${yyyy}`;
+      }
+      // Get today's date as "YYYY-MM-DD" for <input type="date">
+      function getTodayISO() {
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth() + 1).padStart(2, "0");
+        const dd = String(now.getDate()).padStart(2, "0");
+        return `${yyyy}-${mm}-${dd}`;
+      }
+
+      // ---------- On DOM load ----------
+      document.addEventListener("DOMContentLoaded", () => {
+        // Set current date in DD/MM/YYYY
+        const now = new Date();
+        const dd = ("0" + now.getDate()).slice(-2);
+        const mm = ("0" + (now.getMonth() + 1)).slice(-2);
+        const yyyy = now.getFullYear();
+        document.getElementById("current-date").textContent = `${dd}/${mm}/${yyyy}`;
+
+        // Show/hide sections
+        const homeBtn = document.getElementById("home-btn");
+        const memberStatusBtn = document.getElementById("member-status-btn");
+        const homeSection = document.getElementById("home-section");
+        const memberStatusSection = document.getElementById("member-status-section");
+
+        homeBtn.addEventListener("click", () => {
+          homeSection.classList.remove("hidden");
+          memberStatusSection.classList.add("hidden");
         });
-  </script>
- </body>
-</html>
+        memberStatusBtn.addEventListener("click", () => {
+          homeSection.classList.add("hidden");
+          memberStatusSection.classList.remove("hidden");
+          clearMemberDetails();
+        });
 
+        // Sub-section toggles in Home
+        const addBookBtn = document.getElementById("add-book-btn");
+        const addUserBtn = document.getElementById("add-user-btn");
+        const assignBookBtn = document.getElementById("assign-book-btn");
+
+        const addBookSection = document.getElementById("add-book-section");
+        const addUserSection = document.getElementById("add-user-section");
+        const assignBookSection = document.getElementById("assign-book-section");
+        const assignDateInput = document.getElementById("assign-date");
+
+        addBookBtn.addEventListener("click", () => {
+          addBookSection.classList.remove("hidden");
+          addUserSection.classList.add("hidden");
+          assignBookSection.classList.add("hidden");
+        });
+        addUserBtn.addEventListener("click", () => {
+          addUserSection.classList.remove("hidden");
+          addBookSection.classList.add("hidden");
+          assignBookSection.classList.add("hidden");
+        });
+        assignBookBtn.addEventListener("click", () => {
+          assignBookSection.classList.remove("hidden");
+          addBookSection.classList.add("hidden");
+          addUserSection.classList.add("hidden");
+          // Auto-select current date for assign date
+          if (!assignDateInput.value) {
+            assignDateInput.value = getTodayISO();
+          }
+          assignDateInput.dispatchEvent(new Event("change"));
+        });
+
+        // Auto-calc due date (15 days after assign-date) in DD/MM/YYYY
+        assignDateInput.addEventListener("change", (e) => {
+          const dateVal = e.target.value; // "YYYY-MM-DD"
+          if (!dateVal) return;
+          const assignDate = new Date(dateVal);
+          assignDate.setDate(assignDate.getDate() + 15);
+          const dd = String(assignDate.getDate()).padStart(2, "0");
+          const mm = String(assignDate.getMonth() + 1).padStart(2, "0");
+          const yyyy = assignDate.getFullYear();
+          document.getElementById("due-date").value = `${dd}/${mm}/${yyyy}`;
+        });
+
+        // Fill assigned books table initially
+        updateAssignedBooksTable();
+      });
+
+      // ---------- ADD BOOK ----------
+      document.getElementById("add-book-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const books = getData("books");
+        const isoPublish = document.getElementById("book-publish-date").value;
+        const book = {
+          name: document.getElementById("book-name").value.trim(),
+          author: document.getElementById("book-author").value.trim(),
+          code: document.getElementById("book-code").value.trim(),
+          publishDate: toDDMMYYYY(isoPublish),
+          language: document.getElementById("book-language").value.trim(),
+          closet: document.getElementById("book-closet").value.trim(),
+          section: document.getElementById("book-section").value.trim(),
+          materialType: document.getElementById("book-material").value.trim(),
+        };
+        books.push(book);
+        saveData("books", books);
+
+        alert("Book added successfully!");
+        console.log("Data stored at /storage/emulated/0/Library/Book Details");
+        e.target.reset();
+        document.getElementById("add-book-section").classList.add("hidden");
+      });
+
+      // ---------- ADD USER ----------
+      document.getElementById("add-user-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const users = getData("users");
+        const user = {
+          name: document.getElementById("user-name").value.trim(),
+          memberCode: document.getElementById("user-code").value.trim(),
+          mobile: document.getElementById("user-mobile").value.trim(),
+          category: document.getElementById("member-category").value.trim(),
+        };
+        users.push(user);
+        saveData("users", users);
+
+        alert("User added successfully!");
+        console.log("Data stored at /storage/emulated/0/Library/User Details");
+        e.target.reset();
+        document.getElementById("add-user-section").classList.add("hidden");
+      });
+     
+      // ---------- ASSIGN BOOK ----------
+      document.getElementById("assign-book-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const userCode = document.getElementById("assign-user-code").value.trim();
+        const bookCode = document.getElementById("assign-book-code").value.trim();
+
+        // 1) Check if user exists
+        const users = getData("users");
+        const foundUser = users.find((u) => u.memberCode === userCode);
+        if (!foundUser) {
+          alert("User not found in the database!");
+          return;
+        }
+        // 2) Check if book exists
+        const books = getData("books");
+        const foundBook = books.find((b) => b.code === bookCode);
+        if (!foundBook) {
+          alert("Book not found in the database!");
+          return;
+        }
+        // 3) Check if user already has 3 books
+        const assignments = getData("assignments");
+        const userAssignments = assignments.filter((a) => a.userCode === userCode);
+        if (userAssignments.length >= 3) {
+          alert("User already has 3 books assigned!");
+          return;
+        }
+        // 4) Check if the book is already assigned
+        if (assignments.some((a) => a.bookCode === bookCode)) {
+          alert("This book is already assigned!");
+          return;
+        }
+
+        const isoAssignDate = document.getElementById("assign-date").value;
+        const ddmmAssignDate = toDDMMYYYY(isoAssignDate);
+        const ddmmDueDate = document.getElementById("due-date").value;
+
+        const assignment = {
+          userName: foundUser.name,
+          bookName: foundBook.name,
+          userCode: userCode,
+          bookCode: bookCode,
+          assignDate: ddmmAssignDate,
+          dueDate: ddmmDueDate,
+          mobile: foundUser.mobile || "N/A",
+        };
+
+        assignments.push(assignment);
+        saveData("assignments", assignments);
+
+        alert("Book assigned successfully!");
+        console.log("Data stored at /storage/emulated/0/Library/Book Issue Data");
+        e.target.reset();
+        document.getElementById("assign-book-section").classList.add("hidden");
+        updateAssignedBooksTable();
+      });
+
+      // ---------- UPDATE ASSIGNED BOOKS TABLE ----------
+      function updateAssignedBooksTable() {
+        const assignments = getData("assignments");
+        const tbody = document.getElementById("assigned-books-table");
+        tbody.innerHTML = "";
+
+        assignments.forEach((a, index) => {
+          const tr = document.createElement("tr");
+          tr.classList.add("border-b", "border-gray-600");
+          tr.innerHTML = `
+            <td class="px-4 py-2">${a.userName}</td>
+            <td class="px-4 py-2">${a.bookName}</td>
+            <td class="px-4 py-2">${a.dueDate}</td>
+            <td class="px-4 py-2">${a.mobile}</td>
+            <td class="px-4 py-2">
+              <button
+                class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-400"
+                onclick="returnBook(${index})"
+              >
+                Return
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // ---------- RETURN BOOK ----------
+      function returnBook(index) {
+        const assignments = getData("assignments");
+        assignments.splice(index, 1);
+        saveData("assignments", assignments);
+        alert("Book returned successfully!");
+        updateAssignedBooksTable();
+      }
+      window.returnBook = returnBook; // Expose globally
+
+      // ---------- BOOK SEARCH ----------
+      document.getElementById("book-search-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const books = getData("books");
+        const assignments = getData("assignments");
+
+                                                                   const nameVal = document.getElementById("search-book-name").value.trim().toLowerCase();
+        const codeVal = document.getElementById("search-book-code").value.trim().toLowerCase();
+        const authorVal = document.getElementById("search-book-author").value.trim().toLowerCase();
+        const isoPublish = document.getElementById("search-book-publish-date").value;
+        let publishVal = "";
+        if (isoPublish) {
+          publishVal = toDDMMYYYY(isoPublish);
+        }
+
+        const results = books.filter((book) => {
+          return (
+            (!nameVal || book.name.toLowerCase().includes(nameVal)) &&
+            (!codeVal || book.code.toLowerCase().includes(codeVal)) &&
+            (!authorVal || book.author.toLowerCase().includes(authorVal)) &&
+            (!publishVal || book.publishDate === publishVal)
+          );
+        });
+
+        const table = document.getElementById("search-results-table");
+        const tbody = document.getElementById("search-results-body");
+        const message = document.getElementById("search-message");
+        tbody.innerHTML = "";
+        table.classList.add("hidden");
+        message.textContent = "";
+
+        if (results.length === 0) {
+          message.textContent = "No books found.";
+          return;
+        }
+
+        table.classList.remove("hidden");
+        results.forEach((book) => {
+          const assignment = assignments.find((a) => a.bookCode === book.code);
+          let statusHTML = "";
+          if (assignment) {
+            // Retrieve member details from users data for additional info
+            const users = getData("users");
+            const member = users.find((u) => u.memberCode === assignment.userCode) || {};
+            statusHTML = `
+              <span class="text-red-400 font-bold">Issued</span><br/>
+              <span>Issued to: ${assignment.userName}</span><br/>
+              <span>Member Code: ${assignment.userCode}</span><br/>
+              <span>Category: ${member.category || "N/A"}</span>
+            `;
+          } else {
+            statusHTML = `
+              <span class="text-green-400 font-bold">Available</span>
+              <button onclick="issueNow('${book.code}', '${book.name}')" class="ml-2 px-2 py-1 bg-[#48C9B0] text-white rounded hover:bg-[#3ba18c]">
+                Issue Now
+              </button>
+            `;
+          }
+          const tr = document.createElement("tr");
+          tr.classList.add("border-b", "border-gray-600");
+          tr.innerHTML = `
+            <td class="px-4 py-2">${book.name}</td>
+            <td class="px-4 py-2">${book.author}</td>
+            <td class="px-4 py-2">${book.code}</td>
+            <td class="px-4 py-2">${book.publishDate}</td>
+            <td class="px-4 py-2">${book.materialType}</td>
+            <td class="px-4 py-2">${statusHTML}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+
+      // ---------- Issue Now Function ----------
+      function issueNow(bookCode, bookName) {
+        // Show the assign book form and pre-fill the book details
+        document.getElementById("assign-book-section").classList.remove("hidden");
+        document.getElementById("add-book-section").classList.add("hidden");
+        document.getElementById("add-user-section").classList.add("hidden");
+        document.getElementById("assign-book-code").value = bookCode;
+        document.getElementById("assign-book-name").value = bookName;
+        // Clear user name and user code fields for admin to fill in
+        document.getElementById("assign-user-name").value = "";
+        document.getElementById("assign-user-code").value = "";
+        // Auto-set assign date to today if not already set
+        const assignDateInput = document.getElementById("assign-date");
+        if (!assignDateInput.value) {
+          assignDateInput.value = getTodayISO();
+          assignDateInput.dispatchEvent(new Event("change"));
+        }
+      }
+      window.issueNow = issueNow; // Expose globally
+
+      // ---------- MEMBER STATUS ----------
+      document.getElementById("member-status-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const code = document.getElementById("member-code").value.trim();
+        const users = getData("users");
+        const user = users.find((u) => u.memberCode === code);
+        const details = document.getElementById("member-details");
+
+        if (!user) {
+          alert("Member not found!");
+          details.classList.add("hidden");
+          return;
+        }
+       
+        const assignments = getData("assignments");
+        const currentAssigned = assignments.filter((a) => a.userCode === code).length;
+        document.getElementById("member-full-name").textContent = `Full Name: ${user.name}`;
+        document.getElementById("member-code-detail").textContent = `Member Code: ${user.memberCode}`;
+        document.getElementById("member-mobile").textContent = `Mobile Number: ${user.mobile || "N/A"}`;
+        document.getElementById("member-category-detail").textContent = `Category: ${user.category}`;
+        document.getElementById("current-assigned-books").textContent = `Currently Assigned Books: ${currentAssigned}`;
+        document.getElementById("past-assigned-books").textContent = `Past Assigned Books: N/A`;
+
+        details.classList.remove("hidden");
+        e.target.dataset.memberCode = code;
+      });
+
+      function clearMemberDetails() {
+        document.getElementById("member-details").classList.add("hidden");
+        document.getElementById("member-status-form").reset();
+        document.getElementById("member-status-form").dataset.memberCode = "";
+      }
+
+      // ---------- UPDATE MEMBER ----------
+      document.getElementById("update-details-btn").addEventListener("click", () => {
+        const form = document.getElementById("member-status-form");
+        const code = form.dataset.memberCode;
+        if (!code) return;
+        const users = getData("users");
+        const idx = users.findIndex((u) => u.memberCode === code);
+        if (idx < 0) return;
+        const newName = prompt("Enter new name:", users[idx].name);
+        const newMobile = prompt("Enter new mobile number:", users[idx].mobile || "");
+        const newCategory = prompt("Enter new category:", users[idx].category);
+        if (newName) users[idx].name = newName;
+        if (newMobile !== null) users[idx].mobile = newMobile;
+        if (newCategory) users[idx].category = newCategory;
+        saveData("users", users);
+        alert("Member details updated!");
+        form.dispatchEvent(new Event("submit"));
+      });
+
+      // ---------- DELETE MEMBER ----------
+      document.getElementById("delete-member-btn").addEventListener("click", () => {
+        const authID = prompt("Enter User ID for deletion (ID: Library):");
+        const authPass = prompt("Enter Password (lib1234):");
+        if (authID === "Library" && authPass === "lib1234") {
+          const form = document.getElementById("member-status-form");
+          const code = form.dataset.memberCode;
+          if (!code) return;
+          let users = getData("users");
+          users = users.filter((u) => u.memberCode !== code);
+          saveData("users", users);
+          alert("Member deleted successfully!");
+          document.getElementById("member-details").classList.add("hidden");
+        } else {
+          alert("Authentication failed!");
+        }
+      });
+
+      // ---------- GENERATE PDF (Placeholder) ----------
+      document.getElementById("generate-pdf-btn").addEventListener("click", () => {
+        alert("PDF generation not yet implemented!");
+      });
+    </script>
+  </body>
+</html>
