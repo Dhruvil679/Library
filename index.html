@@ -831,6 +831,9 @@
     </footer>
 
     <script>
+        // Disable Right Click Button
+        document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
         // Set current date
         const now = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
